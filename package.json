@@ -1,0 +1,40 @@
+{
+  "name": "servidor-express-mysql",
+  "version": "1.0.0",
+  "description": "Servidor-Express-MySQL",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvictordev7/Servidor-Express-MySQL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jvictordev7/Servidor-Express-MySQL/issues"
+  },
+  "homepage": "https://github.com/jvictordev7/Servidor-Express-MySQL#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "debug": "^4.4.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "http-errors": "^2.0.0",
+    "jade": "^0.29.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.14.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.23.0",
+    "eslint-config-google": "^0.14.0",
+    "nodemon": "^3.1.9"
+  }
+}
