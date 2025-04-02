@@ -29,3 +29,25 @@ Este projeto é uma aplicação Node.js que utiliza o framework Express para cri
 1. Clone este repositório:
    ```bash
    git clone https://github.com/jvictordev7/Servidor-Express-MySQL.git
+
+2. Clone este repositório:
+   ```bash
+   d Servidor-Express-MySQL
+
+3. Instale as dependências:
+   ```bash
+   npm install
+
+## Uso
+
+1. Clone este repositório:
+   ```bash
+   npm start
+
+2. Acesse http://localhost:3000 no seu navegador para interagir com a aplicação.
+   
+## Testes
+
+Para executar os testes de integração:
+ ```bash
+   npm test
