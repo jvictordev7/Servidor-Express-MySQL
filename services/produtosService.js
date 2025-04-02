@@ -1,7 +1,7 @@
 const pool = require('../configs/database');
 
 function validateProduto(produto) {
-    const { nome, descricao, preco, estoque } = produto;
+    const { nome, descricao, preco } = produto;
 
     if (!nome || typeof nome !== 'string' || nome.trim() === '') {
         throw new Error('Nome é obrigatório e deve ser uma string não vazia.');
@@ -13,10 +13,6 @@ function validateProduto(produto) {
 
     if (typeof preco !== 'number' || preco <= 0) {
         throw new Error('Preço deve ser um número positivo.');
-    }
-
-    if (!Number.isInteger(estoque) || estoque < 0) {
-        throw new Error('Estoque deve ser um número inteiro não negativo.');
     }
 }
 
@@ -32,26 +28,27 @@ async function getProdutoById(id) {
 
 async function createProduto(produto) {
     validateProduto(produto); // Validate before inserting
-    const { nome, descricao, preco, estoque } = produto;
+    const { nome, descricao, preco } = produto;
     const [result] = await pool.query(
-        'INSERT INTO produtos (nome, descricao, preco, estoque) VALUES (?, ?, ?, ?)',
-        [nome, descricao, preco, estoque]
+        'INSERT INTO produtos (nome, descricao, preco) VALUES (?, ?, ?)',
+        [nome, descricao, preco]
     );
     return getProdutoById(result.insertId);
 }
 
 async function updateProduto(id, produto) {
     validateProduto(produto); // Validate before updating
-    const { nome, descricao, preco, estoque } = produto;
+    const { nome, descricao, preco } = produto;
     await pool.query(
-        'UPDATE produtos SET nome = ?, descricao = ?, preco = ?, estoque = ? WHERE id = ?',
-        [nome, descricao, preco, estoque, id]
+        'UPDATE produtos SET nome = ?, descricao = ?, preco = ? WHERE id = ?',
+        [nome, descricao, preco, id]
     );
     return getProdutoById(id);
 }
 
 async function deleteProduto(id) {
-    await pool.query('DELETE FROM produtos WHERE id = ?', [id]);
+    const [result] = await pool.query('DELETE FROM produtos WHERE id = ?', [id]);
+    return result.affectedRows > 0; // Retorna true se algo foi deletado
 }
 
 module.exports = {

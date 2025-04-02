@@ -29,7 +29,8 @@ async function updateCliente(id, cliente) {
 }
 
 async function deleteCliente(id) {
-    await pool.query('DELETE FROM clientes WHERE id = ?', [id]);
+    const [result] = await pool.query('DELETE FROM clientes WHERE id = ?', [id]);
+    return result.affectedRows > 0; // Retorna true se algo foi deletado
 }
 
 module.exports = {
