@@ -24,23 +24,18 @@ app.use('/clientes', clientesRouter);
 app.use('/produtos', produtosRouter);
 
 app.use((req, res, next) => {
-    next(createError(404));
+  next(createError(404));
 });
 
 app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    res.json({
-        error: {
-            message: err.message,
-            status: err.status || 500,
-            stack: req.app.get('env') === 'development' ? err.stack : undefined
-        }
-    });
+  res.status(err.status || 500);
+  res.json({
+    error: {
+      message: err.message,
+      status: err.status || 500,
+      stack: req.app.get('env') === 'development' ? err.stack : undefined
+    }
+  });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
-});
-
-module.exports = app;
+module.exports = app; // Exporta apenas o app, sem iniciar o servidor

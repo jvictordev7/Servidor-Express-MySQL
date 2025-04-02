@@ -1,7 +1,7 @@
 function validarProduto(req, res, next) {
-    const { nome, preco, categoria } = req.body;
+    const { nome, descricao, preco } = req.body;
     
-    if (!nome || !preco || !categoria) {
+    if (!nome || !descricao || !preco) {
         return res.status(400).json({ message: 'Todos os campos são obrigatórios' });
     }
     

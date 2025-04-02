@@ -33,7 +33,10 @@ async function criarCliente(req, res, next) {
 async function atualizarCliente(req, res, next) {
     try {
         const clienteAtualizado = await clientesService.updateCliente(req.params.id, req.body);
-        res.json(clienteAtualizado);
+        if (!clienteAtualizado) {
+            return res.status(404).json({ message: 'Cliente não encontrado' });
+        }
+        res.json({ message: 'Cliente atualizado com sucesso' });
     } catch (error) {
         next(error);
     }
@@ -41,8 +44,15 @@ async function atualizarCliente(req, res, next) {
 
 async function excluirCliente(req, res, next) {
     try {
+        console.log('Tentando excluir cliente com ID:', req.params.id);
+        const cliente = await clientesService.getClienteById(req.params.id);
+        if (!cliente) {
+            console.log('Cliente não encontrado:', req.params.id);
+            return res.status(404).json({ message: 'Cliente não encontrado' });
+        }
         await clientesService.deleteCliente(req.params.id);
-        res.status(204).end();
+        console.log('Cliente deletado com sucesso:', req.params.id);
+        res.status(200).json({ message: 'Cliente deletado com sucesso' });
     } catch (error) {
         next(error);
     }
