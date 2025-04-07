@@ -1,7 +1,6 @@
-const app = require('./app'); // Importa o app configurado no app.js
-
-const PORT = process.env.PORT || 3000; // Define a porta a partir do .env ou usa 3000 como padrão
+const app = require('./app'); // Importa o app configurado
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
