@@ -1,7 +1,9 @@
 const express = require('express');
+const clientesController = require('../controllers/clientesController'); // Controle de clientes
+const validarCliente = require('../middlewares/validarCliente'); // Validação de cliente
+const limitarAcao = require('../middlewares/limiteAcoes'); // Limitar ações
+
 const router = express.Router();
-const clientesController = require('../controllers/clientesController');
-const validarCliente = require('../middlewares/validarCliente');
 
 /**
  * @swagger
@@ -56,7 +58,7 @@ router.get('/:id', clientesController.obterCliente);
  *       201:
  *         description: Cliente criado com sucesso
  */
-router.post('/', validarCliente, clientesController.criarCliente);
+router.post('/', limitarAcao('adicionar'), validarCliente, clientesController.criarCliente);
 
 /**
  * @swagger
@@ -89,7 +91,7 @@ router.post('/', validarCliente, clientesController.criarCliente);
  *       200:
  *         description: Cliente atualizado com sucesso
  */
-router.put('/:id', validarCliente, clientesController.atualizarCliente);
+router.put('/:id', limitarAcao('editar'), validarCliente, clientesController.atualizarCliente);
 
 /**
  * @swagger
@@ -107,6 +109,6 @@ router.put('/:id', validarCliente, clientesController.atualizarCliente);
  *       200:
  *         description: Cliente excluído com sucesso
  */
-router.delete('/:id', clientesController.excluirCliente);
+router.delete('/:id', limitarAcao('excluir'), clientesController.excluirCliente);
 
 module.exports = router;

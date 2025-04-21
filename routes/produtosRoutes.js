@@ -1,6 +1,7 @@
 const express = require('express');
-const produtosController = require('../controllers/produtosController');
-const validarProduto = require('../middlewares/validarProduto');
+const produtosController = require('../controllers/produtosController'); // Controle de produtos
+const validarProduto = require('../middlewares/validarProduto'); // Validação de produto
+const limitarAcao = require('../middlewares/limiteAcoes'); // Limitar ações
 
 const router = express.Router();
 
@@ -55,7 +56,7 @@ router.get('/:id', produtosController.obterProduto);
  *       201:
  *         description: Produto criado com sucesso
  */
-router.post('/', validarProduto, produtosController.criarProduto); // Middleware aplicado aqui
+router.post('/', limitarAcao('adicionar'), validarProduto, produtosController.criarProduto);
 
 /**
  * @swagger
@@ -86,7 +87,7 @@ router.post('/', validarProduto, produtosController.criarProduto); // Middleware
  *       200:
  *         description: Produto atualizado com sucesso
  */
-router.put('/:id', validarProduto, produtosController.atualizarProduto); // Middleware aplicado aqui
+router.put('/:id', limitarAcao('editar'), validarProduto, produtosController.atualizarProduto);
 
 /**
  * @swagger
@@ -104,6 +105,6 @@ router.put('/:id', validarProduto, produtosController.atualizarProduto); // Midd
  *       200:
  *         description: Produto excluído com sucesso
  */
-router.delete('/:id', produtosController.excluirProduto);
+router.delete('/:id', limitarAcao('excluir'), produtosController.excluirProduto);
 
 module.exports = router;
