@@ -15,10 +15,14 @@ const app = express();
 
 // Middleware para habilitar o CORS
 app.use(cors({
-  origin: 'http://localhost:3000', // Permite apenas o frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-  credentials: true, // Permite envio de cookies, se necessário
+  origin: [
+    'http://localhost:3000',
+    'https://front-end-servidor-express-my-sql.vercel.app'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
 }));
+
 
 app.use(morgan('dev'));
 app.use(express.json());
